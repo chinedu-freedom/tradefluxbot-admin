@@ -97,9 +97,9 @@ export default function SpinSettingsDialog({ open, setOpen, initialData, totalPr
         <form onSubmit={handleSubmit(onSubmit)} className="px-8 py-6 space-y-8">
           {/* Quick Stats */}
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-            <div className="bg-purple-50 border border-purple-100 rounded-lg p-3 flex flex-col items-center justify-center text-center">
-              <span className="text-xl font-bold text-purple-600">{totalPrizes}</span>
-              <span className="text-[10px] font-bold text-purple-500 uppercase tracking-wider mt-1">Total Prizes</span>
+            <div className="bg-blue-50 border border-blue-100 rounded-lg p-3 flex flex-col items-center justify-center text-center">
+              <span className="text-xl font-bold text-[#0073b6]">{totalPrizes}</span>
+              <span className="text-[10px] font-bold text-[#0073b6] uppercase tracking-wider mt-1">Total Prizes</span>
             </div>
             <div className="bg-green-50 border border-green-100 rounded-lg p-3 flex flex-col items-center justify-center text-center">
               <span className="text-xl font-bold text-blue-600">{activePrizes}</span>
@@ -164,7 +164,7 @@ export default function SpinSettingsDialog({ open, setOpen, initialData, totalPr
 
           {/* Free Spins Configuration */}
           <div className="bg-white rounded-md border shadow-sm overflow-hidden">
-            <div className="bg-[#5A8DEE] px-6 py-4 flex items-center">
+            <div className="bg-[#0073b6] px-6 py-4 flex items-center">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white mr-2"><polyline points="20 12 20 22 4 22 4 12"></polyline><rect x="2" y="7" width="20" height="5"></rect><line x1="12" y1="22" x2="12" y2="7"></line><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path></svg>
               <h3 className="text-lg font-medium text-white">Free Spins Configuration</h3>
             </div>
@@ -172,7 +172,7 @@ export default function SpinSettingsDialog({ open, setOpen, initialData, totalPr
             <div className="p-6 space-y-8">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div>
-                  <Label className="text-[#5A8DEE] font-medium text-sm flex items-center mb-2">
+                  <Label className="text-[#0073b6] font-medium text-sm flex items-center mb-2">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2"><rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
                     Free Spins per Deposit
                   </Label>
@@ -185,7 +185,7 @@ export default function SpinSettingsDialog({ open, setOpen, initialData, totalPr
                 </div>
 
                 <div>
-                  <Label className="text-[#5A8DEE] font-medium text-sm flex items-center mb-2">
+                  <Label className="text-[#0073b6] font-medium text-sm flex items-center mb-2">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0ea5e9" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
                     Daily Referral Target
                   </Label>
@@ -198,7 +198,7 @@ export default function SpinSettingsDialog({ open, setOpen, initialData, totalPr
                 </div>
 
                 <div>
-                  <Label className="text-[#5A8DEE] font-medium text-sm flex items-center mb-2">
+                  <Label className="text-[#0073b6] font-medium text-sm flex items-center mb-2">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path></svg>
                     Spins for Daily Challenge
                   </Label>

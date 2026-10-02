@@ -54,8 +54,8 @@ export default function NewsManagementPage() {
       title: "Page Views (Current)",
       value: totalViews.toString(),
       icon: Eye,
-      color: "text-purple-600",
-      bg: "bg-purple-100",
+      color: "text-[#0073b6]",
+      bg: "bg-blue-100",
     },
     {
       title: "Featured (Current)",
@@ -176,7 +176,7 @@ export default function NewsManagementPage() {
                   <TableRow>
                     <TableCell colSpan={8} className="text-center py-10">
                       <div className="flex items-center justify-center">
-                        <Loader2 className="w-6 h-6 animate-spin text-[#5A8DEE]" />
+                        <Loader2 className="w-6 h-6 animate-spin text-[#0073b6]" />
                         <span className="ml-2 text-gray-500">Loading news...</span>
                       </div>
                     </TableCell>
@@ -197,7 +197,7 @@ export default function NewsManagementPage() {
                         <span className="font-bold text-gray-800 text-[14px] line-clamp-1">{news.title}</span>
                       </TableCell>
                       <TableCell>
-                        <Badge className="bg-[#e5edff] hover:bg-[#d4e0ff] text-[#5A8DEE] border-0 px-3 py-1 font-semibold rounded-[4px]">
+                        <Badge className="bg-[#e5edff] hover:bg-[#d4e0ff] text-[#0073b6] border-0 px-3 py-1 font-semibold rounded-[4px]">
                           {news.category || "GENERAL"}
                         </Badge>
                       </TableCell>

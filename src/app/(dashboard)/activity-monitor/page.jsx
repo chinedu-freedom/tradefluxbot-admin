@@ -7,6 +7,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { useFetchData } from "@/hooks/useApi"
 import Pagination from "@/components/Pagination"
@@ -358,10 +359,20 @@ export default function ActivityMonitorPage() {
                           </div>
                         </TableCell>
                         <TableCell className="py-4">
-                          <div className="font-bold text-[#5A8DEE] text-[13px] hover:underline cursor-pointer">
-                            {record.user?.email || "Unknown User"}
+                          <div className="flex items-center gap-2.5">
+                            <Avatar className="w-7 h-7 shrink-0 border border-gray-100 shadow-xs">
+                              <AvatarImage src={record.user?.profile_image} alt={record.user?.email || "User"} className="object-cover" />
+                              <AvatarFallback className="bg-[#0073b6] text-white text-[11px] font-bold">
+                                {(record.user?.email || "U").charAt(0).toUpperCase()}
+                              </AvatarFallback>
+                            </Avatar>
+                            <div>
+                              <div className="font-bold text-[#0073b6] text-[13px] hover:underline cursor-pointer">
+                                {record.user?.email || "Unknown User"}
+                              </div>
+                              <div className="text-[12px] text-gray-500 mt-0.5">ID: {record.user?.id ? record.user.id.substring(0, 8) + '...' : "-"}</div>
+                            </div>
                           </div>
-                          <div className="text-[12px] text-gray-500 mt-1">ID: {record.user?.id || "-"}</div>
                         </TableCell>
                         <TableCell className="py-4">
                           <Badge showDot={false} className={`${actionInfo.color} text-white border-0 px-3 py-1 rounded-full font-bold text-[10px] tracking-wide uppercase flex items-center w-fit gap-1.5`}>

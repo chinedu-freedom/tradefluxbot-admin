@@ -21,8 +21,8 @@ export default function VerifyOtpPage() {
 
   const { data: settingsResponse } = useFetchData("/settings", ["platform-settings"]);
   const settings = settingsResponse?.settings || {};
-  const siteName = settings.site_name || "Kryptex Mining";
-  const siteLogo = settings.platform_logo || null;
+  const siteName = settings.site_name || "TradeFluxBot";
+  const siteLogo = settings.platform_logo || "/logo.jpeg";
 
   const verifyOtpMutation = usePost("/auth/admin/verify-otp", null);
   const resendOtpMutation = usePost("/auth/admin/forgot-password", null);
@@ -80,7 +80,7 @@ export default function VerifyOtpPage() {
               <img src={siteLogo} alt="Logo" className="w-full h-full object-contain" />
             </div>
           ) : (
-            <div className="w-16 h-16 bg-gradient-to-br from-[#4c1d95] to-[#0f172a] rounded-full flex items-center justify-center shadow-sm mb-4">
+            <div className="w-16 h-16 bg-gradient-to-br from-[#0073b6] to-[#0f172a] rounded-full flex items-center justify-center shadow-sm mb-4">
               <div className="text-white text-xs font-bold tracking-wider">
                 {siteName.substring(0, 4).toUpperCase()}
               </div>
@@ -103,14 +103,14 @@ export default function VerifyOtpPage() {
                   value={digit}
                   onChange={(e) => handleChange(e.target.value, index)}
                   onKeyDown={(e) => handleKeyDown(e, index)}
-                  className="w-12 h-12 text-center text-lg font-semibold border border-gray-300 focus:ring-2 focus:ring-purple-500"
+                  className="w-12 h-12 text-center text-lg font-semibold border border-gray-300 focus:ring-2 focus:ring-[#0073b6]"
                 />
               ))}
             </div>
 
             <Button
               type="submit"
-              className="w-full bg-purple-600 text-white hover:bg-purple-700 rounded-md py-4.5 font-medium transition-all"
+              className="w-full bg-[#0073b6] text-white hover:bg-[#00629b] rounded-md py-4.5 font-medium transition-all"
               disabled={verifyOtpMutation.isPending}
             >
               {verifyOtpMutation.isPending ? "Verifying..." : "Verify OTP"}
@@ -125,7 +125,7 @@ export default function VerifyOtpPage() {
                 className={`font-medium cursor-pointer hover:underline ${
                   resendOtpMutation.isPending
                     ? "text-gray-400 cursor-not-allowed"
-                    : "text-purple-600"
+                    : "text-[#0073b6]"
                 }`}
               >
                 {resendOtpMutation.isPending ? "Resending..." : "Resend"}

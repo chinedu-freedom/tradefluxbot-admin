@@ -5,6 +5,7 @@ import { Search, CreditCard, Loader2 } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { useFetchData } from "@/hooks/useApi"
 import { format } from "date-fns"
 
@@ -37,7 +38,8 @@ export default function ApprovedRechargePage() {
     userInfo: {
       name: d.user?.full_name || "Unknown",
       username: d.user?.email || "Unknown",
-      refId: (d.user_id || "").substring(0, 6).toUpperCase() || "N/A"
+      refId: (d.user_id || "").substring(0, 6).toUpperCase() || "N/A",
+      profile_image: d.user?.profile_image
     },
     paymentInfo: {
       paymentNumber: d.id,
@@ -71,7 +73,7 @@ export default function ApprovedRechargePage() {
       {/* Header */}
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between w-full mb-6 gap-4">
         <div className="flex items-center gap-3">
-          <CreditCard className="w-6 h-6 text-[#5A8DEE]" />
+          <CreditCard className="w-6 h-6 text-[#0073b6]" />
           <h1 className="text-2xl font-bold text-gray-800">Approved Payment Lists</h1>
         </div>
       </div>
@@ -127,16 +129,23 @@ export default function ApprovedRechargePage() {
                       
                       {/* USER INFO */}
                       <TableCell className="py-4">
-                        <div className="flex flex-col space-y-1.5">
-                          <div className="text-[13px] text-gray-700">
-                            Name: <span className="font-medium">{item.userInfo.name}</span>
-                          </div>
-                          <div className="text-[13px] text-gray-700">
-                            Username: <br />
-                            <span className="font-medium">{item.userInfo.username}</span>
-                          </div>
-                          <div className="text-[13px] text-gray-700">
-                            Ref_id: <span className="font-medium">{item.userInfo.refId}</span>
+                        <div className="flex items-start gap-2.5">
+                          <Avatar className="w-8 h-8 shrink-0 mt-0.5 border border-gray-100 shadow-xs">
+                            <AvatarImage src={item.userInfo.profile_image} alt={item.userInfo.name} className="object-cover" />
+                            <AvatarFallback className="bg-[#0073b6] text-white text-[11px] font-bold">
+                              {(item.userInfo.name || item.userInfo.username || "U").charAt(0).toUpperCase()}
+                            </AvatarFallback>
+                          </Avatar>
+                          <div className="flex flex-col space-y-1">
+                            <div className="text-[13px] text-gray-700">
+                              Name: <span className="font-medium">{item.userInfo.name}</span>
+                            </div>
+                            <div className="text-[13px] text-gray-700">
+                              Username: <span className="font-medium">{item.userInfo.username}</span>
+                            </div>
+                            <div className="text-[13px] text-gray-700">
+                              Ref_id: <span className="font-medium">{item.userInfo.refId}</span>
+                            </div>
                           </div>
                         </div>
                       </TableCell>

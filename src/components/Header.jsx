@@ -10,13 +10,13 @@ export function Header({ onMenuClick }) {
   const { data: settingsData } = useFetchData("/settings", "platform-settings");
   
   const admin = data?.success && data?.data ? data.data : null;
-  const siteLogo = settingsData?.settings?.platform_logo;
+  const siteLogo = settingsData?.settings?.platform_logo || "/logo.jpeg";
 
-  const displayName = admin?.username || (admin?.email ? admin.email.split("@")[0] : "eonassets");
-  const avatarLetter = (admin?.username ? admin.username[0] : (admin?.email ? admin.email[0] : "E")).toUpperCase();
+  const displayName = admin?.username || (admin?.email ? admin.email.split("@")[0] : "tradefluxbot");
+  const avatarLetter = (admin?.username ? admin.username[0] : (admin?.email ? admin.email[0] : "T")).toUpperCase();
 
   return (
-    <header className="h-[60px] flex items-center justify-between px-6 bg-white/95 backdrop-blur-md border-b border-gray-150 sticky top-0 z-20 font-['Rubik',sans-serif]">
+    <header className="h-[60px] flex items-center justify-between px-6 bg-white/95 backdrop-blur-md border-b border-gray-150 sticky top-0 z-20 font-sans">
       <div className="flex items-center gap-4">
         <button 
           onClick={onMenuClick}

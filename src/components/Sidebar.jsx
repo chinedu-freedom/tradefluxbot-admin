@@ -109,7 +109,7 @@ export function Sidebar({ isOpen, onClose }) {
         />
       )}
 
-      <div className={`fixed inset-y-0 left-0 z-50 transform ${isOpen ? 'translate-x-0' : '-translate-x-full'} lg:relative lg:translate-x-0 flex h-full w-[260px] flex-col bg-[#F9FAFB] shadow-[0_0_15px_0_rgba(0,0,0,0.05)] font-['Rubik',sans-serif] transition-transform duration-300 ease-in-out`}>
+      <div className={`fixed inset-y-0 left-0 z-50 transform ${isOpen ? 'translate-x-0' : '-translate-x-full'} lg:relative lg:translate-x-0 flex h-full w-[260px] flex-col bg-[#F9FAFB] shadow-[0_0_15px_0_rgba(0,0,0,0.05)] font-sans transition-transform duration-300 ease-in-out`}>
         <div className="flex h-[80px] items-center px-6 mt-2">
           <Link href="/ktdevpro/dashboard" className="flex items-center gap-3 w-full" onClick={handleLinkClick}>
             <span className="text-[1.8rem] font-medium text-[#475f7b] tracking-wide">Dashboard</span>

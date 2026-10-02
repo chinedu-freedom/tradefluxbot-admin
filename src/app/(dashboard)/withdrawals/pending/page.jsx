@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { useFetchData } from "@/hooks/useApi"
 import { format } from "date-fns"
 import { toast } from "sonner"
@@ -87,7 +88,8 @@ export default function PendingWithdrawPage() {
     sn: index + 1,
     userInfo: {
       name: w.user?.full_name || "Unknown",
-      username: w.user?.email || "Unknown"
+      username: w.user?.email || "Unknown",
+      profile_image: w.user?.profile_image
     },
     withdrawInfo: {
       method: w.network || w.withdrawal_method || "Crypto",
@@ -117,7 +119,7 @@ export default function PendingWithdrawPage() {
       {/* Header */}
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between w-full mb-6 gap-4">
         <div className="flex items-center gap-3">
-          <ArrowDownToLine className="w-6 h-6 text-[#5A8DEE]" />
+          <ArrowDownToLine className="w-6 h-6 text-[#0073b6]" />
           <h1 className="text-2xl font-bold text-gray-800">Pending Withdraw Lists</h1>
         </div>
       </div>
@@ -173,13 +175,20 @@ export default function PendingWithdrawPage() {
                       
                       {/* USER INFO */}
                       <TableCell className="py-4">
-                        <div className="flex flex-col space-y-1.5">
-                          <div className="text-[13px] text-gray-700">
-                            Name: <span className="font-medium">{item.userInfo.name}</span>
-                          </div>
-                          <div className="text-[13px] text-gray-700">
-                            Username: <br />
-                            <span className="font-medium">{item.userInfo.username}</span>
+                        <div className="flex items-start gap-2.5">
+                          <Avatar className="w-8 h-8 shrink-0 mt-0.5 border border-gray-100 shadow-xs">
+                            <AvatarImage src={item.userInfo.profile_image} alt={item.userInfo.name} className="object-cover" />
+                            <AvatarFallback className="bg-[#0073b6] text-white text-[11px] font-bold">
+                              {(item.userInfo.name || item.userInfo.username || "U").charAt(0).toUpperCase()}
+                            </AvatarFallback>
+                          </Avatar>
+                          <div className="flex flex-col space-y-1">
+                            <div className="text-[13px] text-gray-700">
+                              Name: <span className="font-medium">{item.userInfo.name}</span>
+                            </div>
+                            <div className="text-[13px] text-gray-700">
+                              Username: <span className="font-medium">{item.userInfo.username}</span>
+                            </div>
                           </div>
                         </div>
                       </TableCell>

@@ -16,6 +16,7 @@ import { CookieManager } from "@/utils/cookie-utils";
 export default function LoginPage() {
   const router = useRouter();
   const [isMounted, setIsMounted] = useState(false);
+  const [imgError, setImgError] = useState(false);
 
   const {
     register,
@@ -34,8 +35,8 @@ export default function LoginPage() {
 
   const { data: settingsResponse } = useFetchData("/settings", ["platform-settings"]);
   const settings = settingsResponse?.settings || {};
-  const siteName = settings.site_name || "Kryptex Mining";
-  const siteLogo = settings.platform_logo || null;
+  const siteName = settings.site_name || "TradeFluxBot";
+  const siteLogo = settings.platform_logo || "/logo.jpeg";
 
   useEffect(() => {
     setIsMounted(true);
@@ -84,12 +85,17 @@ export default function LoginPage() {
       <div className="flex flex-col justify-center items-center w-full max-w-xl px-8 py-12">
         <div className="w-full max-w-sm">
           <div className="mb-10 flex flex-col items-center text-center">
-            {siteLogo ? (
+            {siteLogo && !imgError ? (
               <div className="w-16 h-16 rounded-full overflow-hidden shadow-sm flex items-center justify-center bg-gray-50 border border-gray-100 mb-4">
-                <img src={siteLogo} alt="Logo" className="w-full h-full object-contain" />
+                <img 
+                  src={siteLogo} 
+                  alt="Logo" 
+                  className="w-full h-full object-contain" 
+                  onError={() => setImgError(true)}
+                />
               </div>
             ) : (
-              <div className="w-16 h-16 bg-gradient-to-br from-[#4c1d95] to-[#0f172a] rounded-full flex items-center justify-center shadow-sm mb-4">
+              <div className="w-16 h-16 bg-gradient-to-br from-[#0073b6] to-[#0f172a] rounded-full flex items-center justify-center shadow-sm mb-4">
                 <div className="text-white text-xs font-bold tracking-wider">
                   {siteName.substring(0, 4).toUpperCase()}
                 </div>
@@ -149,7 +155,7 @@ export default function LoginPage() {
 
               <Link
                 href="/auth/forgot-password"
-                className="text-sm text-purple-600 hover:underline cursor-pointer"
+                className="text-sm text-[#0073b6] hover:underline cursor-pointer"
               >
                 Forgot password?
               </Link>
@@ -157,7 +163,7 @@ export default function LoginPage() {
 
             <Button
               type="submit"
-              className="w-full bg-purple-600 text-white hover:bg-purple-700 rounded-md py-4.5 font-medium transition-all"
+              className="w-full bg-[#0073b6] text-white hover:bg-[#00629b] rounded-md py-4.5 font-medium transition-all"
               disabled={loginMutation.isPending}
             >
               {loginMutation.isPending ? (

@@ -68,7 +68,7 @@ export default function PlansManagementPage() {
 
   const getTypeColor = (isFixed) => {
     if (isFixed) {
-      return "bg-purple-100 text-purple-800"
+      return "bg-sky-100 text-sky-800"
     }
     return "bg-blue-100 text-blue-800"
   }

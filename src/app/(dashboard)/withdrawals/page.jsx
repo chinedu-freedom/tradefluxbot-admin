@@ -16,6 +16,7 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 const mockWithdrawals = [
   { id: "WTH-2091", user: "Sarah Miller", amount: "850.00", method: "USDT (TRC20)", address: "T9zX...4kP2", status: "PENDING", date: "Nov 02, 2025 10:15" },
@@ -181,8 +182,14 @@ export default function WithdrawalsPage() {
                     </div>
                   </td>
                   <td className="px-6 py-4 font-medium text-gray-700">
-                    <Link href={`/customers/${withdrawal.user_id}`} className="hover:text-blue-600 hover:underline transition-colors">
-                      {withdrawal.user.full_name}
+                    <Link href={`/customers/${withdrawal.user_id}`} className="hover:text-blue-600 hover:underline transition-colors flex items-center gap-2.5">
+                      <Avatar className="w-7 h-7 shrink-0 border border-gray-100 shadow-xs">
+                        <AvatarImage src={withdrawal.user?.profile_image} alt={withdrawal.user?.full_name || "User"} className="object-cover" />
+                        <AvatarFallback className="bg-[#0073b6] text-white text-[11px] font-bold">
+                          {(withdrawal.user?.full_name || "U").charAt(0).toUpperCase()}
+                        </AvatarFallback>
+                      </Avatar>
+                      <span>{withdrawal.user.full_name}</span>
                     </Link>
                   </td>
                   <td className="px-6 py-4 font-bold text-red-500">{symbol}{Number(withdrawal.amount).toFixed(2)}</td>

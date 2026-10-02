@@ -22,8 +22,8 @@ export default function ForgotPasswordPage() {
 
   const { data: settingsResponse } = useFetchData("/settings", ["platform-settings"]);
   const settings = settingsResponse?.settings || {};
-  const siteName = settings.site_name || "Kryptex Mining";
-  const siteLogo = settings.platform_logo || null;
+  const siteName = settings.site_name || "TradeFluxBot";
+  const siteLogo = settings.platform_logo || "/logo.jpeg";
 
   const requestOtpMutation = usePost("/auth/admin/forgot-password", null);
 
@@ -47,7 +47,7 @@ export default function ForgotPasswordPage() {
                 <img src={siteLogo} alt="Logo" className="w-full h-full object-contain" />
               </div>
             ) : (
-              <div className="w-16 h-16 bg-gradient-to-br from-[#4c1d95] to-[#0f172a] rounded-full flex items-center justify-center shadow-sm mb-4">
+              <div className="w-16 h-16 bg-gradient-to-br from-[#0073b6] to-[#0f172a] rounded-full flex items-center justify-center shadow-sm mb-4">
                 <div className="text-white text-xs font-bold tracking-wider">
                   {siteName.substring(0, 4).toUpperCase()}
                 </div>
@@ -73,7 +73,7 @@ export default function ForgotPasswordPage() {
 
             <Button
               type="submit"
-              className="w-full bg-purple-600 text-white hover:bg-purple-700 rounded-md py-4.5 font-medium transition-all"
+              className="w-full bg-[#0073b6] text-white hover:bg-[#00629b] rounded-md py-4.5 font-medium transition-all"
               disabled={requestOtpMutation.isPending}
             >
               {requestOtpMutation.isPending ? (
@@ -104,7 +104,7 @@ export default function ForgotPasswordPage() {
 
             <p className="text-center text-sm text-gray-500 mt-6">
               Remembered your password?{" "}
-              <Link href="/" className="text-purple-600 font-medium hover:underline cursor-pointer">
+              <Link href="/" className="text-[#0073b6] font-medium hover:underline cursor-pointer">
                 Back to Login
               </Link>
             </p>

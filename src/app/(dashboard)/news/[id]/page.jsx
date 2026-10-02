@@ -55,7 +55,7 @@ export default function AdminNewsPreviewPage() {
               <span className="text-xs font-medium px-3 py-1 rounded-md bg-gray-100 text-gray-600 flex items-center gap-1.5">
                 <Calendar size={12} /> {new Date(article.published_at).toLocaleDateString()}
               </span>
-              <span className="text-xs font-medium px-3 py-1 rounded-md bg-purple-50 text-purple-600 flex items-center gap-1.5">
+              <span className="text-xs font-medium px-3 py-1 rounded-md bg-blue-50 text-[#0073b6] flex items-center gap-1.5">
                 <Eye size={12} /> {article.views} views
               </span>
               {article.is_featured && (
@@ -79,7 +79,7 @@ export default function AdminNewsPreviewPage() {
               <div className="w-full h-[200px] bg-gradient-to-r from-blue-500 to-[#0f172a] rounded-2xl mb-8 shadow-inner relative overflow-hidden flex items-center justify-center">
                 <div className="absolute inset-0 bg-black/20"></div>
                 <span className="text-white/50 text-sm font-bold tracking-widest uppercase z-10 flex items-center gap-2">
-                  <ImageIcon size={20} /> EonAssets News Image Placeholder
+                  <ImageIcon size={20} /> TradeFluxBot News Image Placeholder
                 </span>
               </div>
             )}

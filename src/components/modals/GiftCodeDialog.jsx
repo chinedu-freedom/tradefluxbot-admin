@@ -119,7 +119,7 @@ export default function GiftCodeDialog({ open, setOpen, initialData }) {
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto p-0 border-0 bg-[#f8fafc]">
         {/* Header */}
         <div className="bg-white px-8 py-5 flex items-center justify-between border-b">
-          <div className="flex items-center gap-2 text-[#5A8DEE]">
+          <div className="flex items-center gap-2 text-[#0073b6]">
             <Gift className="w-5 h-5" />
             <DialogTitle className="text-xl font-medium text-gray-700">
               {isEdit ? "Edit Gift Code" : "Create New Gift Code"}
@@ -132,7 +132,7 @@ export default function GiftCodeDialog({ open, setOpen, initialData }) {
             
             {/* Code Name */}
             <div>
-              <Label className="text-[#5A8DEE] text-sm mb-1.5 flex items-center gap-1.5 font-medium">
+              <Label className="text-[#0073b6] text-sm mb-1.5 flex items-center gap-1.5 font-medium">
                 <Tag className="w-4 h-4" />
                 Code Name <span className="text-red-500">*</span>
               </Label>
@@ -147,7 +147,7 @@ export default function GiftCodeDialog({ open, setOpen, initialData }) {
 
             {/* Gift Code */}
             <div>
-              <Label className="text-[#5A8DEE] text-sm mb-1.5 flex items-center gap-1.5 font-medium">
+              <Label className="text-[#0073b6] text-sm mb-1.5 flex items-center gap-1.5 font-medium">
                 <Key className="w-4 h-4" />
                 Gift Code <span className="text-red-500">*</span>
               </Label>
@@ -160,7 +160,7 @@ export default function GiftCodeDialog({ open, setOpen, initialData }) {
                 <Button 
                   type="button" 
                   onClick={generateCode}
-                  className="h-11 rounded-sm-l-none bg-blue-50 text-[#5A8DEE] border border-l-0 border-gray-200 hover:bg-blue-100"
+                  className="h-11 rounded-sm-l-none bg-blue-50 text-[#0073b6] border border-l-0 border-gray-200 hover:bg-blue-100"
                 >
                   Generate
                 </Button>

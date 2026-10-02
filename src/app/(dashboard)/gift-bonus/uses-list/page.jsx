@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { useFetchData } from "@/hooks/useApi"
 import { format } from "date-fns"
 
@@ -35,7 +36,7 @@ export default function BonusUsesListPage() {
       {/* Header */}
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between w-full mb-6 gap-4">
         <div className="flex items-center gap-3">
-          <ClipboardList className="w-6 h-6 text-[#5A8DEE]" />
+          <ClipboardList className="w-6 h-6 text-[#0073b6]" />
           <h1 className="text-2xl font-bold text-gray-800">Bonus Uses List</h1>
         </div>
       </div>
@@ -113,9 +114,17 @@ export default function BonusUsesListPage() {
                         </span>
                       </TableCell>
                       <TableCell className="py-4">
-                        <div className="flex flex-col">
-                          <span className="font-medium text-[#5A8DEE] text-[13px]">{item.user?.full_name || "Unknown"}</span>
-                          <span className="text-gray-500 text-[12px]">{item.user?.email || "N/A"}</span>
+                        <div className="flex items-center gap-2.5">
+                          <Avatar className="w-7 h-7 shrink-0 border border-gray-100 shadow-xs">
+                            <AvatarImage src={item.user?.profile_image} alt={item.user?.full_name || "User"} className="object-cover" />
+                            <AvatarFallback className="bg-[#0073b6] text-white text-[11px] font-bold">
+                              {(item.user?.full_name || item.user?.email || "U").charAt(0).toUpperCase()}
+                            </AvatarFallback>
+                          </Avatar>
+                          <div className="flex flex-col">
+                            <span className="font-medium text-[#0073b6] text-[13px]">{item.user?.full_name || "Unknown"}</span>
+                            <span className="text-gray-500 text-[12px]">{item.user?.email || "N/A"}</span>
+                          </div>
                         </div>
                       </TableCell>
                       <TableCell className="py-4">

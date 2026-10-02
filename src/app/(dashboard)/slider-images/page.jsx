@@ -170,7 +170,7 @@ export default function SliderImagesPage() {
                             </div>
                           </TableCell>
                           <TableCell className="py-4">
-                            <span className="font-medium text-[#5A8DEE] text-[13px]">{item.display_location}</span>
+                            <span className="font-medium text-[#0073b6] text-[13px]">{item.display_location}</span>
                           </TableCell>
                           <TableCell className="py-4">
                             <span className={`px-2.5 py-1 text-[11px] font-bold rounded uppercase ${

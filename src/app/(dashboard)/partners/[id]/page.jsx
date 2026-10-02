@@ -82,7 +82,7 @@ export default function EditPartnerPage({ params }) {
           <h1 className="text-lg font-semibold text-gray-700">Edit Partner: {partner.name}</h1>
         </div>
         <Link href="/partners">
-          <Button variant="default" className="bg-[#5A8DEE] hover:bg-[#4778d9] text-white flex items-center gap-2 h-9 px-4 rounded-sm-sm">
+          <Button variant="default" className="bg-[#0073b6] hover:bg-[#00629b] text-white flex items-center gap-2 h-9 px-4 rounded-sm-sm">
             <ChevronLeft className="w-4 h-4" />
             Back To Partners
           </Button>

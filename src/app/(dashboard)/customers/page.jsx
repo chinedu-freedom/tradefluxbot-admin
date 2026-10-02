@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge"
 import { StatusBadge } from "@/components/ui/status-badge"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Switch } from "@/components/ui/switch"
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { toast } from "sonner"
 import Link from "next/link"
 
@@ -196,7 +197,7 @@ export default function CustomersManagementPage() {
               {isLoading ? (
                 <TableRow>
                   <TableCell colSpan={8} className="text-center py-10 text-gray-500 bg-gray-50/30">
-                    <Loader2 className="w-6 h-6 animate-spin mx-auto mb-2 text-[#5A8DEE]" />
+                    <Loader2 className="w-6 h-6 animate-spin mx-auto mb-2 text-[#0073b6]" />
                     Loading users...
                   </TableCell>
                 </TableRow>
@@ -218,9 +219,12 @@ export default function CustomersManagementPage() {
                   </TableCell>
                   <TableCell className="py-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-[#5A8DEE] text-white flex items-center justify-center font-bold text-sm shrink-0">
-                        {user.email.charAt(0).toUpperCase()}
-                      </div>
+                      <Avatar className="w-8 h-8 shrink-0 border border-gray-100 shadow-xs">
+                        <AvatarImage src={user.profile_image} alt={user.full_name || user.email} className="object-cover" />
+                        <AvatarFallback className="bg-[#0073b6] text-white font-bold text-sm">
+                          {(user.full_name || user.username || user.email || "U").charAt(0).toUpperCase()}
+                        </AvatarFallback>
+                      </Avatar>
                       <div>
                         <div className="font-bold text-gray-800 text-[13px] leading-tight">{user.full_name || user.username || "Unnamed User"}</div>
                         <div className="text-[11px] text-gray-400 mt-0.5">{user.email}</div>
@@ -234,7 +238,7 @@ export default function CustomersManagementPage() {
                     </Badge>
                   </TableCell>
                   <TableCell className="py-4">
-                    <span className="font-bold text-[#5A8DEE] text-[13px]">{symbol}{Number(user.balance || 0).toFixed(2)}</span>
+                    <span className="font-bold text-[#0073b6] text-[13px]">{symbol}{Number(user.balance || 0).toFixed(2)}</span>
                   </TableCell>
                   <TableCell className="py-4">
                     <span className="font-bold text-blue-600 text-[13px]">{symbol}{Number(user.withdrawable_balance || 0).toFixed(2)}</span>

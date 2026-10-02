@@ -91,8 +91,8 @@ export default function SpinWheelPage() {
       title: "Total Spins Used",
       value: (spinSettings.total_spins_used || 0).toString(),
       icon: PieChart,
-      color: "text-purple-600",
-      bg: "bg-purple-100",
+      color: "text-[#0073b6]",
+      bg: "bg-blue-100",
     },
     {
       title: "Total Prizes Paid",

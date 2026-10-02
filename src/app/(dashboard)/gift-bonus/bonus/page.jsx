@@ -61,7 +61,7 @@ export default function GiftBonusPage() {
       {/* Header */}
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between w-full mb-6 gap-4">
         <div className="flex items-center gap-3">
-          <Gift className="w-6 h-6 text-[#5A8DEE]" />
+          <Gift className="w-6 h-6 text-[#0073b6]" />
           <h1 className="text-2xl font-bold text-gray-800">Gift Codes Management</h1>
         </div>
         <div className="flex items-center space-x-3 w-full md:w-auto">
@@ -163,7 +163,7 @@ export default function GiftBonusPage() {
                         <span className="font-medium text-gray-700 text-[13px]">{item.code_name}</span>
                       </TableCell>
                       <TableCell className="py-4">
-                        <span className="font-medium text-[#5A8DEE] text-[13px] bg-blue-50 px-2 py-1 rounded-sm">{item.code}</span>
+                        <span className="font-medium text-[#0073b6] text-[13px] bg-blue-50 px-2 py-1 rounded-sm">{item.code}</span>
                       </TableCell>
                       <TableCell className="py-4">
                         <span className="font-medium text-gray-700 text-[13px]">${Number(item.reward_amount).toFixed(2)}</span>

@@ -5,7 +5,7 @@ import { useParams, useRouter } from "next/navigation"
 import { useFetchData } from "@/hooks/useApi"
 import { useQueryClient } from "@tanstack/react-query"
 import { format } from "date-fns"
-import { ArrowLeft, User, Mail, Globe, Calendar, CreditCard, Gift, Activity, Settings, Save, CheckCircle, XCircle, ShieldAlert, KeyRound, Clock, MapPin, Hash, Link as LinkIcon, AlertTriangle, ArrowRightLeft, Loader2, PlusCircle, MinusCircle, Plus, Minus, WalletCards, ListOrdered, Trash, UserCheck } from "lucide-react"
+import { ArrowLeft, User, Mail, Globe, Calendar, CreditCard, Gift, Activity, Settings, Save, CheckCircle, XCircle, ShieldAlert, KeyRound, Clock, MapPin, Hash, Link as LinkIcon, AlertTriangle, ArrowRightLeft, Loader2, PlusCircle, MinusCircle, Plus, Minus, WalletCards, ListOrdered, Trash, UserCheck, Camera } from "lucide-react"
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -14,6 +14,7 @@ import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
 import { Badge } from "@/components/ui/badge"
 import { StatusBadge } from "@/components/ui/status-badge"
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
@@ -66,20 +67,38 @@ export default function CustomerDetailsPage() {
   const [securityModal, setSecurityModal] = useState({ isOpen: false, actionType: "", password: "" })
 
   useEffect(() => {
-    if (user && !user.error && !editData && !isLoading) {
-      setEditData({
-        full_name: user.full_name || "",
-        username: user.username || "",
-        email: user.email || "",
-        country_id: user.country_id || "",
-        is_active: user.is_active ?? true,
-        can_deposit: user.can_deposit ?? true,
-        can_withdraw: user.can_withdraw ?? true,
-        can_earn_daily: user.can_earn_daily ?? true,
-        new_password: ""
-      })
+    if (user && !user.error && !isLoading) {
+      setEditData(prev => ({
+        full_name: prev?.full_name ?? (user.full_name || ""),
+        username: prev?.username ?? (user.username || ""),
+        email: prev?.email ?? (user.email || ""),
+        country_id: prev?.country_id ?? (user.country_id || ""),
+        profile_image: prev?.profile_image ?? (user.profile_image || ""),
+        is_active: prev?.is_active ?? (user.is_active ?? true),
+        can_deposit: prev?.can_deposit ?? (user.can_deposit ?? true),
+        can_withdraw: prev?.can_withdraw ?? (user.can_withdraw ?? true),
+        can_earn_daily: prev?.can_earn_daily ?? (user.can_earn_daily ?? true),
+        new_password: prev?.new_password ?? ""
+      }))
     }
-  }, [user, editData, isLoading])
+  }, [user, isLoading])
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        toast.error("Image must be less than 5MB");
+        return;
+      }
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64Data = reader.result;
+        setEditData(prev => ({ ...prev, profile_image: base64Data }));
+        toast.info("Profile image updated in preview. Click 'Save All Changes' to save.");
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const handleSave = () => {
     setShowSaveConfirm(true)
@@ -225,9 +244,9 @@ export default function CustomerDetailsPage() {
       if (res.ok && data.token) {
         // Set cookie on main domain if in production
         const isLocal = window.location.hostname.includes('localhost');
-        const targetUrl = isLocal ? 'http://localhost:3002/dashboard' : 'https://mykryptexapp.com/dashboard';
+        const targetUrl = isLocal ? 'http://localhost:3000/dashboard' : 'https://tradefluxbot.com/dashboard';
 
-        document.cookie = `sec-prd-token=${data.token}; path=/; max-age=7200; SameSite=Lax${!isLocal ? '; domain=.mykryptexapp.com; Secure' : ''}`;
+        document.cookie = `sec-prd-token=${data.token}; path=/; max-age=7200; SameSite=Lax${!isLocal ? '; domain=.tradefluxbot.com; Secure' : ''}`;
 
         window.open(targetUrl, '_blank')
       } else {
@@ -282,7 +301,7 @@ export default function CustomerDetailsPage() {
   };
 
   if (isLoading) {
-    return <div className="min-h-[60vh] flex flex-col items-center justify-center space-y-4"><Loader2 className="w-8 h-8 animate-spin text-[#5A8DEE]" /><p className="text-muted-foreground text-sm">Loading user data...</p></div>
+    return <div className="min-h-[60vh] flex flex-col items-center justify-center space-y-4"><Loader2 className="w-8 h-8 animate-spin text-[#0073b6]" /><p className="text-muted-foreground text-sm">Loading user data...</p></div>
   }
 
   if (!user || user.error) {
@@ -294,7 +313,7 @@ export default function CustomerDetailsPage() {
   }
 
   if (!editData) {
-    return <div className="min-h-[60vh] flex flex-col items-center justify-center space-y-4"><Loader2 className="w-8 h-8 animate-spin text-[#5A8DEE]" /><p className="text-muted-foreground text-sm">Preparing editor...</p></div>
+    return <div className="min-h-[60vh] flex flex-col items-center justify-center space-y-4"><Loader2 className="w-8 h-8 animate-spin text-[#0073b6]" /><p className="text-muted-foreground text-sm">Preparing editor...</p></div>
   }
 
   return (
@@ -315,7 +334,7 @@ export default function CustomerDetailsPage() {
             {isDeleting ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Trash className="w-4 h-4 mr-0.5" />}
             Delete User
           </Button>
-          <Button onClick={handleSave} disabled={isSaving} className="bg-[#5A8DEE] hover:bg-[#477ae0] text-white shadow-sm py-5 px-6 rounded-sm-sm">
+          <Button onClick={handleSave} disabled={isSaving} className="bg-[#0073b6] hover:bg-[#00629b] text-white shadow-sm py-5 px-6 rounded-sm-sm">
             {isSaving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Save className="w-4 h-4 mr-2" />}
             Save All Changes
           </Button>
@@ -339,8 +358,32 @@ export default function CustomerDetailsPage() {
 
             {/* Left Col: Identity & Stats */}
             <div className="lg:col-span-4 p-6 border-b lg:border-b-0 lg:border-r border-border flex flex-col items-center lg:items-start text-center lg:text-left bg-muted/5">
-              <div className="w-24 h-24 rounded-full border-4 border-card bg-[#5A8DEE] text-white flex items-center justify-center text-3xl font-bold mb-4 shadow-sm">
-                {(user.email || user.username || "U").charAt(0).toUpperCase()}
+              <div className="relative group mb-4">
+                <Avatar className="w-24 h-24 rounded-full border-4 border-card shadow-sm shrink-0 overflow-hidden">
+                  <AvatarImage 
+                    src={editData?.profile_image || user.profile_image} 
+                    alt={user.full_name || user.username || "User profile"} 
+                    className="object-cover" 
+                  />
+                  <AvatarFallback className="bg-[#0073b6] text-white text-3xl font-bold">
+                    {(user.full_name || user.username || user.email || "U").charAt(0).toUpperCase()}
+                  </AvatarFallback>
+                </Avatar>
+                <label 
+                  htmlFor="profile-image-upload" 
+                  className="absolute inset-0 rounded-full bg-black/40 flex flex-col items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer text-[11px] font-medium"
+                  title="Upload / Change User Photo"
+                >
+                  <Camera className="w-5 h-5 mb-0.5" />
+                  <span>Change</span>
+                </label>
+                <input 
+                  id="profile-image-upload" 
+                  type="file" 
+                  accept="image/*" 
+                  className="hidden" 
+                  onChange={handleImageUpload} 
+                />
               </div>
               <h2 className="text-xl font-bold text-foreground">{user.full_name || user.username || "Unnamed User"}</h2>
               <div className="flex items-center gap-2 text-muted-foreground text-sm mt-1 mb-3 justify-center lg:justify-start">
@@ -385,12 +428,12 @@ export default function CustomerDetailsPage() {
                   </div>
                   <div className="p-2.5 bg-blue-500/10 rounded-xl hidden sm:block"><CreditCard className="w-5 h-5 text-blue-500" /></div>
                 </div>
-                <div className="bg-purple-500/5 border border-purple-500/10 rounded-xl p-4 flex items-center justify-between">
+                <div className="bg-[#0073b6]/5 border border-[#0073b6]/10 rounded-xl p-4 flex items-center justify-between">
                   <div>
-                    <p className="text-xs font-bold text-purple-500 uppercase tracking-wider mb-1">Withdrawable</p>
+                    <p className="text-xs font-bold text-[#0073b6] uppercase tracking-wider mb-1">Withdrawable</p>
                     <h3 className="text-2xl font-bold text-foreground">{symbol}{Number(user.withdrawable_balance || 0).toFixed(2)}</h3>
                   </div>
-                  <div className="p-2.5 bg-purple-500/10 rounded-xl hidden sm:block"><WalletCards className="w-5 h-5 text-purple-500" /></div>
+                  <div className="p-2.5 bg-[#0073b6]/10 rounded-xl hidden sm:block"><WalletCards className="w-5 h-5 text-[#0073b6]" /></div>
                 </div>
               </div>
 
@@ -452,7 +495,7 @@ export default function CustomerDetailsPage() {
             <WalletCards className="w-5 h-5 text-gray-500" />
             Balance Adjustment
           </h2>
-          <div className="w-full h-0.5 bg-[#5A8DEE] mt-4 rounded-full"></div>
+          <div className="w-full h-0.5 bg-[#0073b6] mt-4 rounded-full"></div>
         </CardHeader>
         <CardContent className="p-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -560,7 +603,7 @@ export default function CustomerDetailsPage() {
             <ShieldAlert className="w-5 h-5 text-gray-500" />
             Account Permissions
           </h2>
-          <div className="w-full h-0.5 bg-[#5A8DEE] mt-4 rounded-full"></div>
+          <div className="w-full h-0.5 bg-[#0073b6] mt-4 rounded-full"></div>
         </CardHeader>
         <CardContent className="p-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -619,10 +662,10 @@ export default function CustomerDetailsPage() {
             </h2>
           </div>
           <div className="flex overflow-x-auto gap-2">
-            <button onClick={() => setActiveHistoryTab('transactions')} className={`px-4 py-3 text-sm font-medium transition-colors whitespace-nowrap border-b-2 ${activeHistoryTab === 'transactions' ? 'text-[#5A8DEE] border-[#5A8DEE]' : 'text-muted-foreground border-transparent hover:text-foreground'}`}>
+            <button onClick={() => setActiveHistoryTab('transactions')} className={`px-4 py-3 text-sm font-medium transition-colors whitespace-nowrap border-b-2 ${activeHistoryTab === 'transactions' ? 'text-[#0073b6] border-[#0073b6]' : 'text-muted-foreground border-transparent hover:text-foreground'}`}>
               Recent Transactions
             </button>
-            <button onClick={() => setActiveHistoryTab('investments')} className={`px-4 py-3 text-sm font-medium transition-colors whitespace-nowrap border-b-2 ${activeHistoryTab === 'investments' ? 'text-[#5A8DEE] border-[#5A8DEE]' : 'text-muted-foreground border-transparent hover:text-foreground'}`}>
+            <button onClick={() => setActiveHistoryTab('investments')} className={`px-4 py-3 text-sm font-medium transition-colors whitespace-nowrap border-b-2 ${activeHistoryTab === 'investments' ? 'text-[#0073b6] border-[#0073b6]' : 'text-muted-foreground border-transparent hover:text-foreground'}`}>
               Active Investments
             </button>
           </div>
@@ -687,11 +730,11 @@ export default function CustomerDetailsPage() {
                   user.investments.map((inv) => (
                     <TableRow key={inv.id} className="border-b border-border hover:bg-muted/20">
                       <TableCell className="font-medium text-sm text-foreground">{(inv.plan_id || "").substring(0, 8)}...</TableCell>
-                      <TableCell className="font-bold text-sm text-[#5A8DEE]">
+                      <TableCell className="font-bold text-sm text-[#0073b6]">
                         {symbol}{Number(inv.amount).toFixed(2)}
                       </TableCell>
                       <TableCell>
-                        <Badge showDot={false} className="bg-[#5A8DEE]/10 text-[#5A8DEE] border border-[#5A8DEE]/20 text-xs font-medium shadow-sm">{inv.status}</Badge>
+                        <Badge showDot={false} className="bg-[#0073b6]/10 text-[#0073b6] border border-[#0073b6]/20 text-xs font-medium shadow-sm">{inv.status}</Badge>
                       </TableCell>
                       <TableCell className="text-sm text-muted-foreground">
                         {safeFormatDate(inv.created_at, "MMM dd, yyyy")}
@@ -738,7 +781,7 @@ export default function CustomerDetailsPage() {
         <DialogContent className="sm:max-w-[425px] border-border bg-card">
           <DialogHeader className="border-b border-border bg-muted/20 pb-4">
             <DialogTitle className="text-xl font-bold text-foreground flex items-center gap-2">
-              <Save className="w-5 h-5 text-[#5A8DEE]" />
+              <Save className="w-5 h-5 text-[#0073b6]" />
               Confirm Changes
             </DialogTitle>
           </DialogHeader>
@@ -746,7 +789,7 @@ export default function CustomerDetailsPage() {
             <p className="text-muted-foreground">Are you sure you want to save these changes to the user's profile and permissions?</p>
             <div className="flex justify-end gap-3 mt-6">
               <Button variant="outline" onClick={() => setShowSaveConfirm(false)} className="border-border bg-background">Cancel</Button>
-              <Button onClick={executeSave} disabled={isSaving} className="bg-[#5A8DEE] hover:bg-[#477ae0] text-white">
+              <Button onClick={executeSave} disabled={isSaving} className="bg-[#0073b6] hover:bg-[#00629b] text-white">
                 {isSaving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Save className="w-4 h-4 mr-2" />}
                 Save Changes
               </Button>

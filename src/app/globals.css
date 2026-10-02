@@ -1,3 +1,4 @@
+@import url('https://fonts.cdnfonts.com/css/proxima-nova');
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
@@ -7,9 +8,20 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
+  --font-sans: 'Proxima Nova', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-sans);
+  --font-heading: 'Proxima Nova', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --color-blue-400: #38bdf8;
+  --color-blue-500: #0073b6;
+  --color-blue-600: #0073b6;
+  --color-blue-700: #00629b;
+  --color-blue-800: #0077ba;
+  --color-purple-400: #38bdf8;
+  --color-purple-500: #0073b6;
+  --color-purple-600: #0073b6;
+  --color-purple-700: #00629b;
+  --color-purple-800: #0077ba;
+  --color-primary: #0073b6;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -105,8 +117,8 @@
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
+  --primary: #0073b6;
+  --primary-foreground: #ffffff;
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
   --muted: oklch(0.97 0 0);
@@ -116,8 +128,8 @@
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
+  --ring: #0073b6;
+  --chart-1: #0073b6;
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
   --chart-4: oklch(0.371 0 0);
@@ -125,8 +137,8 @@
   --radius: 0.625rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-primary: #0073b6;
+  --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: oklch(0.97 0 0);
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
@@ -140,8 +152,8 @@
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
+  --primary: #0073b6;
+  --primary-foreground: #ffffff;
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.269 0 0);
@@ -151,16 +163,16 @@
   --destructive: oklch(0.704 0.191 22.216);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
+  --ring: #0073b6;
+  --chart-1: #0073b6;
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
   --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-primary: #0073b6;
+  --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: oklch(0.269 0 0);
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
@@ -186,10 +198,10 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border outline-ring/50 font-sans;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
   }
   html {
     @apply font-sans;
@@ -207,4 +219,27 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   -webkit-text-fill-color: black !important;
   -webkit-box-shadow: 0 0 0 1000px white inset !important;
+}
+
+/* Ensure all admin primary utilities (blue and purple) use the light blue #0073b6 */
+.text-blue-600, .text-blue-500, .text-purple-600, .text-purple-500 {
+  color: #0073b6 !important;
+}
+.bg-blue-600, .bg-blue-500, .bg-purple-600, .bg-purple-500 {
+  background-color: #0073b6 !important;
+}
+.border-blue-600, .border-blue-500, .border-purple-600, .border-purple-500 {
+  border-color: #0073b6 !important;
+}
+.hover\:bg-blue-700:hover, .hover\:bg-blue-600:hover, .hover\:bg-purple-700:hover, .hover\:bg-purple-600:hover {
+  background-color: #00629b !important;
+}
+.hover\:text-blue-600:hover, .hover\:text-blue-700:hover, .hover\:text-purple-600:hover, .hover\:text-purple-700:hover {
+  color: #0073b6 !important;
+}
+.focus-visible\:ring-blue-500:focus-visible, .focus-visible\:ring-blue-400:focus-visible, .focus-visible\:ring-purple-500:focus-visible, .focus-visible\:ring-purple-600:focus-visible, .focus\:ring-purple-600:focus, .focus\:ring-purple-500:focus {
+  --tw-ring-color: #0073b6 !important;
+}
+.focus\:border-purple-600:focus, .focus\:border-blue-600:focus {
+  border-color: #0073b6 !important;
 }

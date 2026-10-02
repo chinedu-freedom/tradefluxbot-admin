@@ -107,7 +107,7 @@ export default function CommissionSettingsPage() {
               onChange={(val) => setFormData(f => ({ ...f, level3_commission: val }))}
               subText="Third level referrals" 
               icon={Users}
-              iconColor="text-purple-600"
+              iconColor="text-[#0073b6]"
             />
             <ValidatedInput 
               label="Level 4 Commission (%)" 

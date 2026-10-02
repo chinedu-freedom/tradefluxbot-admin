@@ -17,8 +17,8 @@ export default function ResetPasswordPage() {
 
   const { data: settingsResponse } = useFetchData("/settings", ["platform-settings"]);
   const settings = settingsResponse?.settings || {};
-  const siteName = settings.site_name || "Kryptex Mining";
-  const siteLogo = settings.platform_logo || null;
+  const siteName = settings.site_name || "TradeFluxBot";
+  const siteLogo = settings.platform_logo || "/logo.jpeg";
 
   const resetPasswordMutation = usePost("/auth/admin/reset-password", null);
 
@@ -80,7 +80,7 @@ export default function ResetPasswordPage() {
                 <img src={siteLogo} alt="Logo" className="w-full h-full object-contain" />
               </div>
             ) : (
-              <div className="w-16 h-16 bg-gradient-to-br from-[#4c1d95] to-[#0f172a] rounded-full flex items-center justify-center shadow-sm mb-4">
+              <div className="w-16 h-16 bg-gradient-to-br from-[#0073b6] to-[#0f172a] rounded-full flex items-center justify-center shadow-sm mb-4">
                 <div className="text-white text-xs font-bold tracking-wider">
                   {siteName.substring(0, 4).toUpperCase()}
                 </div>
@@ -113,7 +113,7 @@ export default function ResetPasswordPage() {
             <Button
               type="submit"
               disabled={resetPasswordMutation.isPending}
-              className="w-full bg-purple-600 text-white hover:bg-purple-700 rounded-md py-4.5 font-medium transition-all disabled:opacity-70"
+              className="w-full bg-[#0073b6] text-white hover:bg-[#00629b] rounded-md py-4.5 font-medium transition-all disabled:opacity-70"
             >
               {resetPasswordMutation.isPending
                 ? "Resetting..."
@@ -124,7 +124,7 @@ export default function ResetPasswordPage() {
               Back to{" "}
               <Link
                 href="/"
-                className="text-purple-600 font-medium hover:underline cursor-pointer"
+                className="text-[#0073b6] font-medium hover:underline cursor-pointer"
               >
                 Login
               </Link>

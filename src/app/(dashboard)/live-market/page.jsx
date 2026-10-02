@@ -63,7 +63,7 @@ export default function LiveMarketPage() {
         <CardContent className="p-6 flex items-center justify-between">
           <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <Eye className="w-5 h-5 text-[#5A8DEE]" />
+              <Eye className="w-5 h-5 text-[#0073b6]" />
               <h2 className="text-lg font-semibold text-gray-700">Live Market Visibility</h2>
             </div>
             <p className="text-[13px] text-gray-500">Enable or disable the live market section on homepage</p>
@@ -71,7 +71,7 @@ export default function LiveMarketPage() {
           <Switch 
             checked={isVisible} 
             onCheckedChange={handleVisibilityChange} 
-            className="data-[state=checked]:bg-[#5A8DEE]"
+            className="data-[state=checked]:bg-[#0073b6]"
             disabled={visibilityMutation.isPending || isLoading}
           />
         </CardContent>
@@ -166,7 +166,7 @@ export default function LiveMarketPage() {
                           <Button 
                             variant="default" 
                             size="icon" 
-                            className="h-8 w-8 bg-[#5A8DEE] hover:bg-[#4778d9] text-white border-0 rounded-sm-[4px]"
+                            className="h-8 w-8 bg-[#0073b6] hover:bg-[#00629b] text-white border-0 rounded-sm-[4px]"
                             title="Edit"
                             onClick={() => {
                               setCryptoToEdit(crypto)

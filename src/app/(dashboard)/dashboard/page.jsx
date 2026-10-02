@@ -125,7 +125,7 @@ export default function DashboardOverview() {
 
   if (isLoading) {
     return (
-      <div className="max-w-7xl mx-auto space-y-4 sm:space-y-6 font-['Rubik',sans-serif]">
+      <div className="max-w-7xl mx-auto space-y-4 sm:space-y-6 font-sans">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {Array.from({ length: 14 }).map((_, i) => (
             <Card key={i} className="border border-gray-100 shadow-[0_4px_24px_0_rgba(34,41,47,0.05)] rounded-[12px] bg-white">
@@ -144,7 +144,7 @@ export default function DashboardOverview() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto space-y-4 sm:space-y-6 font-['Rubik',sans-serif]">
+    <div className="max-w-7xl mx-auto space-y-4 sm:space-y-6 font-sans">
       {/* Grid of all stats cards mapped once in 3-column layout */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         {allStats.map((stat, i) => (

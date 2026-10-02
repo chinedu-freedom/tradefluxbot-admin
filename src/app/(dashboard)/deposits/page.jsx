@@ -6,6 +6,7 @@ import { Search, CheckCircle2, XCircle, Clock, Loader2, AlertTriangle, CheckCirc
 import { useFetchData } from "@/hooks/useApi";
 import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { toast } from "sonner";
 import Link from "next/link";
 import {
@@ -173,8 +174,14 @@ export default function DepositsPage() {
                     </div>
                   </td>
                   <td className="px-6 py-4 font-medium text-gray-700">
-                    <Link href={`/customers/${deposit.user_id}`} className="hover:text-blue-600 hover:underline transition-colors">
-                      {deposit.user?.full_name || "Unknown"}
+                    <Link href={`/customers/${deposit.user_id}`} className="hover:text-blue-600 hover:underline transition-colors flex items-center gap-2.5">
+                      <Avatar className="w-7 h-7 shrink-0 border border-gray-100 shadow-xs">
+                        <AvatarImage src={deposit.user?.profile_image} alt={deposit.user?.full_name || "User"} className="object-cover" />
+                        <AvatarFallback className="bg-[#0073b6] text-white text-[11px] font-bold">
+                          {(deposit.user?.full_name || deposit.user?.email || "U").charAt(0).toUpperCase()}
+                        </AvatarFallback>
+                      </Avatar>
+                      <span>{deposit.user?.full_name || "Unknown"}</span>
                     </Link>
                   </td>
                   <td className="px-6 py-4 font-bold text-emerald-600">{symbol}{Number(deposit.amount).toFixed(2)}</td>

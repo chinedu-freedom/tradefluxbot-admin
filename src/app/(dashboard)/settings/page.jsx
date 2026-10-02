@@ -26,7 +26,7 @@ export default function SettingsPage() {
                 <label className="text-sm font-semibold text-gray-600">Platform Name</label>
                 <input 
                   type="text" 
-                  defaultValue="Kryptex Mining"
+                  defaultValue="TradeFluxBot"
                   className="w-full bg-white border border-gray-200 rounded-lg py-2.5 px-4 text-gray-800 focus:outline-none focus:border-blue-500/50 transition-colors placeholder-gray-400 text-sm"
                 />
               </div>
@@ -34,7 +34,7 @@ export default function SettingsPage() {
                 <label className="text-sm font-semibold text-gray-600">Support Email</label>
                 <input 
                   type="email" 
-                  defaultValue="support@eonassetsmining.com"
+                  defaultValue="support@tradefluxbot.com"
                   className="w-full bg-white border border-gray-200 rounded-lg py-2.5 px-4 text-gray-800 focus:outline-none focus:border-blue-500/50 transition-colors placeholder-gray-400 text-sm"
                 />
               </div>

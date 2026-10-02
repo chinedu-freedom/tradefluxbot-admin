@@ -14,11 +14,15 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
 
 # local env files
 .env*.local
 .env
-.env.local
+.env.*
+!.env.example
+env.download
+*.env
 
 # IDEs and editors
 .idea/
@@ -28,3 +32,5 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+.DS_Store
+Thumbs.db

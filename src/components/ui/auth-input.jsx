@@ -119,7 +119,7 @@ const Input = React.forwardRef(
           placeholder=" "
           className={cn(
             "peer block w-full rounded-md border border-gray-300 bg-white px-3 py-3 text-sm text-black",
-            "focus:border-purple-600 focus:outline-none focus:ring-1 focus:ring-purple-600 transition-all duration-150",
+            "focus:border-[#0073b6] focus:outline-none focus:ring-1 focus:ring-[#0073b6] transition-all duration-150",
             "disabled:cursor-not-allowed disabled:opacity-50",
             "autofill:bg-white autofill:shadow-[inset_0_0_0px_1000px_white]",
             "[-webkit-text-fill-color:black]",
@@ -144,14 +144,14 @@ const Input = React.forwardRef(
               "text-gray-500",
               shouldFloatLabel
                 ? [
-                    "-top-2 text-xs font-medium text-purple-600",
+                    "-top-2 text-xs font-medium text-[#0073b6]",
                     "bg-white px-1",
                   ].join(' ')
                 : [
                     "top-3 text-sm",
                     "bg-transparent"
                   ].join(' '),
-              "peer-focus:-top-2 peer-focus:text-xs peer-focus:text-purple-600 peer-focus:bg-white peer-focus:px-1"
+              "peer-focus:-top-2 peer-focus:text-xs peer-focus:text-[#0073b6] peer-focus:bg-white peer-focus:px-1"
             )}
           >
             {label}

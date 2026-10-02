@@ -134,7 +134,7 @@ export default function PartnersManagementPage() {
                   onClick={() => handleEdit(partner)}
                   variant="default" 
                   size="sm" 
-                  className="bg-[#5A8DEE] hover:bg-[#4778d9] text-white border-0 rounded text-xs px-4 h-8 w-full"
+                  className="bg-[#0073b6] hover:bg-[#00629b] text-white border-0 rounded text-xs px-4 h-8 w-full"
                 >
                   <Edit className="w-3.5 h-3.5 mr-1.5" />
                   Edit

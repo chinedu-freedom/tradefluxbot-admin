@@ -14,7 +14,7 @@ export const getStatusColor = (status) => {
     case "processing":
     case "shipped":
     case "in_progress":
-      return "bg-[#5A8DEE] text-white"; // Using the design system's blue
+      return "bg-[#0073b6] text-white"; // Using the design system's blue
 
     // Warning / Pending states
     case "pending":

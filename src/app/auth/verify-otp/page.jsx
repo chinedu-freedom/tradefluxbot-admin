@@ -4,7 +4,7 @@ import { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { otpSchema } from "@/lib/schemas";
-import { usePost, useFetchData } from "@/hooks/useApi"; 
+import { usePost, useFetchData } from "@/hooks/useApi";
 import { Input } from "@/components/ui/auth-input";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
@@ -22,7 +22,7 @@ export default function VerifyOtpPage() {
   const { data: settingsResponse } = useFetchData("/settings", ["platform-settings"]);
   const settings = settingsResponse?.settings || {};
   const siteName = settings.site_name || "TradeFluxBot";
-  const siteLogo = settings.platform_logo || "/logo.jpeg";
+  const siteLogo = settings.platform_logo || "/logo.png";
 
   const verifyOtpMutation = usePost("/auth/admin/verify-otp", null);
   const resendOtpMutation = usePost("/auth/admin/forgot-password", null);
@@ -122,11 +122,10 @@ export default function VerifyOtpPage() {
                 type="button"
                 onClick={handleResend}
                 disabled={resendOtpMutation.isPending}
-                className={`font-medium cursor-pointer hover:underline ${
-                  resendOtpMutation.isPending
+                className={`font-medium cursor-pointer hover:underline ${resendOtpMutation.isPending
                     ? "text-gray-400 cursor-not-allowed"
                     : "text-[#0073b6]"
-                }`}
+                  }`}
               >
                 {resendOtpMutation.isPending ? "Resending..." : "Resend"}
               </button>

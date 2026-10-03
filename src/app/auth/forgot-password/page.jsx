@@ -23,7 +23,7 @@ export default function ForgotPasswordPage() {
   const { data: settingsResponse } = useFetchData("/settings", ["platform-settings"]);
   const settings = settingsResponse?.settings || {};
   const siteName = settings.site_name || "TradeFluxBot";
-  const siteLogo = settings.platform_logo || "/logo.jpeg";
+  const siteLogo = settings.platform_logo || "/logo.png";
 
   const requestOtpMutation = usePost("/auth/admin/forgot-password", null);
 

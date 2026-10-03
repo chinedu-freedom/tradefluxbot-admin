@@ -72,7 +72,6 @@ const navigation = [
       { name: "About Us", href: "/settings/about" },
       { name: "Commission", href: "/settings/commission" },
 
-      { name: "Payout Cryptos", href: "/settings/payout-cryptos" },
       { name: "Verification Password", href: "/settings/security" },
     ]
   }

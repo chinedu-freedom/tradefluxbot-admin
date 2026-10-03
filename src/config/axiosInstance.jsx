@@ -4,7 +4,7 @@ import axios from "axios";
 import { CookieManager } from "@/utils/cookie-utils";
 
 // ✅ Use correct env variable
-export const API_URL = process.env.NEXT_PUBLIC_BASE_URL;
+export const API_URL = process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_API_URL || "https://tradefluxbot-backend-5gbk.onrender.com/api";
 
 const axiosInstance = axios.create({
   baseURL: API_URL,

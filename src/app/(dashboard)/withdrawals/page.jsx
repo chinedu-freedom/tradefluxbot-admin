@@ -49,7 +49,7 @@ export default function WithdrawalsPage() {
     
     try {
       const token = document.cookie.split("; ").find(row => row.startsWith("sec-admin-token="))?.split("=")[1];
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/admin/transactions/withdrawals/${withdrawalId}/status`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_API_URL || "https://tradefluxbot-backend-5gbk.onrender.com/api"}/admin/transactions/withdrawals/${withdrawalId}/status`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

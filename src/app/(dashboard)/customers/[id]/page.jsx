@@ -108,7 +108,7 @@ export default function CustomerDetailsPage() {
     setIsSaving(true)
     try {
       const token = document.cookie.split("; ").find(row => row.startsWith("sec-admin-token="))?.split("=")[1];
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/admin/users/${id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_API_URL || "https://tradefluxbot-backend-5gbk.onrender.com/api"}/admin/users/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -162,7 +162,7 @@ export default function CustomerDetailsPage() {
     setSecurityModal(prev => ({ ...prev, isOpen: false }))
     try {
       const token = document.cookie.split("; ").find(row => row.startsWith("sec-admin-token="))?.split("=")[1];
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/admin/users/${id}/${actionType}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_API_URL || "https://tradefluxbot-backend-5gbk.onrender.com/api"}/admin/users/${id}/${actionType}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -206,7 +206,7 @@ export default function CustomerDetailsPage() {
     setIsDeleting(true)
     try {
       const token = document.cookie.split("; ").find(row => row.startsWith("sec-admin-token="))?.split("=")[1];
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/admin/users/${id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_API_URL || "https://tradefluxbot-backend-5gbk.onrender.com/api"}/admin/users/${id}`, {
         method: "DELETE",
         headers: {
           "Authorization": `Bearer ${token}`
@@ -234,7 +234,7 @@ export default function CustomerDetailsPage() {
     setIsImpersonating(true)
     try {
       const adminToken = document.cookie.split("; ").find(row => row.startsWith("sec-admin-token="))?.split("=")[1];
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/admin/users/${id}/impersonate`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_API_URL || "https://tradefluxbot-backend-5gbk.onrender.com/api"}/admin/users/${id}/impersonate`, {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${adminToken}`

@@ -1,5 +1,7 @@
 "use client"
 
+import { CookieManager } from "@/utils/cookie-utils"
+
 import { useState, useRef } from "react"
 import { Search, Edit, Lock, LogIn, Users, CheckCircle, Clock, Ban, UserCog, History, RotateCcw, Trash2, AlertTriangle } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -46,7 +48,7 @@ export default function CustomersManagementPage() {
     deletingRef.current = true
     setIsDeleting(true)
     try {
-      const token = document.cookie.split("; ").find(row => row.startsWith("sec-admin-token="))?.split("=")[1];
+      const token = CookieManager.get("sec-admin-token") || document.cookie.split("; ").find(row => row.trim().startsWith("sec-admin-token="))?.split("=")[1];
       const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_API_URL || "https://tradefluxbot-backend-5gbk.onrender.com/api"}/admin/users/${userToDelete.id}`, {
         method: "DELETE",
         headers: {

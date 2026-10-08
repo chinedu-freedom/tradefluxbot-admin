@@ -1,5 +1,7 @@
 "use client"
 
+import { CookieManager } from "@/utils/cookie-utils"
+
 import { useState, useEffect, useRef } from "react"
 import { useParams, useRouter } from "next/navigation"
 import { useFetchData } from "@/hooks/useApi"
@@ -107,19 +109,31 @@ export default function CustomerDetailsPage() {
   const executeSave = async () => {
     setIsSaving(true)
     try {
-      const token = document.cookie.split("; ").find(row => row.startsWith("sec-admin-token="))?.split("=")[1];
+      const token = CookieManager.get("sec-admin-token") || (typeof document !== "undefined" ? document.cookie.split("; ").find(row => row.trim().startsWith("sec-admin-token="))?.split("=")[1] : null);
+      
+      const payload = { ...editData };
+      if (!payload.country_id || payload.country_id === "none") {
+        delete payload.country_id;
+      }
+      if (!payload.new_password || !payload.new_password.trim()) {
+        delete payload.new_password;
+      } else {
+        payload.new_password = payload.new_password.trim();
+      }
+
       const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_API_URL || "https://tradefluxbot-backend-5gbk.onrender.com/api"}/admin/users/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
         },
-        body: JSON.stringify(editData)
+        body: JSON.stringify(payload)
       })
 
       const data = await res.json()
-      if (res.ok) {
+      if (res.ok && (data.success !== false)) {
         toast.success(data.message || "Customer profile updated successfully")
+        setEditData(prev => ({ ...prev, new_password: "" }))
         refetch()
         queryClient.invalidateQueries()
       } else {
@@ -161,7 +175,7 @@ export default function CustomerDetailsPage() {
     setProcessing(true)
     setSecurityModal(prev => ({ ...prev, isOpen: false }))
     try {
-      const token = document.cookie.split("; ").find(row => row.startsWith("sec-admin-token="))?.split("=")[1];
+      const token = CookieManager.get("sec-admin-token") || document.cookie.split("; ").find(row => row.trim().startsWith("sec-admin-token="))?.split("=")[1];
       const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_API_URL || "https://tradefluxbot-backend-5gbk.onrender.com/api"}/admin/users/${id}/${actionType}`, {
         method: "POST",
         headers: {
@@ -205,7 +219,7 @@ export default function CustomerDetailsPage() {
     deletingRef.current = true
     setIsDeleting(true)
     try {
-      const token = document.cookie.split("; ").find(row => row.startsWith("sec-admin-token="))?.split("=")[1];
+      const token = CookieManager.get("sec-admin-token") || document.cookie.split("; ").find(row => row.trim().startsWith("sec-admin-token="))?.split("=")[1];
       const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_API_URL || "https://tradefluxbot-backend-5gbk.onrender.com/api"}/admin/users/${id}`, {
         method: "DELETE",
         headers: {
@@ -233,7 +247,7 @@ export default function CustomerDetailsPage() {
   const handleImpersonate = async () => {
     setIsImpersonating(true)
     try {
-      const adminToken = document.cookie.split("; ").find(row => row.startsWith("sec-admin-token="))?.split("=")[1];
+      const adminToken = CookieManager.get("sec-admin-token") || document.cookie.split("; ").find(row => row.trim().startsWith("sec-admin-token="))?.split("=")[1];
       const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_API_URL || "https://tradefluxbot-backend-5gbk.onrender.com/api"}/admin/users/${id}/impersonate`, {
         method: "POST",
         headers: {

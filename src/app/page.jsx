@@ -55,14 +55,16 @@ export default function LoginPage() {
 
   const onSubmit = (data) => {
     const keepMeLoggedIn = data.keepMeLoggedIn ?? false;
+    const sanitizedEmail = (data.email || "").trim().toLowerCase();
+    const sanitizedPassword = (data.password || "").trim();
 
     if (keepMeLoggedIn) {
-      localStorage.setItem("rememberedEmail", data.email);
+      localStorage.setItem("rememberedEmail", sanitizedEmail);
     } else {
       localStorage.removeItem("rememberedEmail");
     }
 
-    loginMutation.mutate({ email: data.email, password: data.password, keepMeLoggedIn }, {
+    loginMutation.mutate({ email: sanitizedEmail, password: sanitizedPassword, keepMeLoggedIn }, {
       onSuccess: (res) => {
         if (res?.token) {
           const cookieOptions = {

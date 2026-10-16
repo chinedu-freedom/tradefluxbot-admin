@@ -34,7 +34,7 @@ export default function PlansManagementPage() {
     planId: null,
   });
 
-  const { data: plansRes, isLoading } = useFetchData("/admin/plans", ["plans"]);
+  const { data: plansRes, isLoading, error: fetchError } = useFetchData("/admin/plans", ["plans"]);
   const plansData = Array.isArray(plansRes) ? plansRes : plansRes?.data || [];
 
   const deleteMutation = useDelete((id) => `/admin/plans/${id}`, ["plans"]);
@@ -56,7 +56,7 @@ export default function PlansManagementPage() {
   };
 
   const getStatusColor = (status) => {
-    switch (status.toLowerCase()) {
+    switch ((status || "").toLowerCase()) {
       case "active":
         return "bg-blue-100 text-green-800"
       case "inactive":
@@ -73,9 +73,11 @@ export default function PlansManagementPage() {
     return "bg-blue-100 text-blue-800"
   }
 
-  const filteredPlans = plansData.filter((plan) => {
-    const matchesSearch =
-      plan.name?.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredPlans = (Array.isArray(plansData) ? plansData : []).filter((plan) => {
+    if (!plan) return false;
+    const planName = (plan.name || "").toLowerCase();
+    const search = (searchTerm || "").toLowerCase();
+    const matchesSearch = !search || planName.includes(search);
       
     const matchesStatus = statusFilter === "all" || 
       (statusFilter === "active" ? plan.status === true : plan.status === false);
@@ -84,14 +86,14 @@ export default function PlansManagementPage() {
     if (typeFilter === "fixed") matchesType = plan.is_fixed_deposit === true;
     if (typeFilter === "flexible") matchesType = plan.is_fixed_deposit === false;
 
-    return matchesSearch && matchesStatus && matchesType
+    return matchesSearch && matchesStatus && matchesType;
   })
 
   // Dynamic stats
-  const activeCount = plansData.filter(p => p.status === true).length;
-  const inactiveCount = plansData.filter(p => p.status === false).length;
-  const highestProfit = plansData.length > 0 
-    ? Math.max(...plansData.map(p => Number(p.daily_income))) 
+  const activeCount = (Array.isArray(plansData) ? plansData : []).filter(p => p?.status === true).length;
+  const inactiveCount = (Array.isArray(plansData) ? plansData : []).filter(p => p?.status === false).length;
+  const highestProfit = (Array.isArray(plansData) ? plansData : []).length > 0 
+    ? Math.max(...plansData.map(p => Number(p?.daily_income) || 0), 0) 
     : 0;
 
   const dynamicStats = [
@@ -223,6 +225,16 @@ export default function PlansManagementPage() {
                       Loading plans...
                     </TableCell>
                   </TableRow>
+                ) : fetchError ? (
+                  <TableRow>
+                    <TableCell colSpan={9} className="text-center py-12 text-red-500 bg-red-50/30">
+                      <p className="text-base font-semibold text-red-600 mb-1">Failed to load packages</p>
+                      <p className="text-sm text-gray-500 mb-3">{fetchError?.message || "There was an error communicating with the server."}</p>
+                      <Button variant="outline" size="sm" onClick={() => window.location.reload()}>
+                        Retry
+                      </Button>
+                    </TableCell>
+                  </TableRow>
                 ) : filteredPlans.length === 0 ? (
                   <TableRow>
                     <TableCell colSpan={9} className="text-center py-12 text-gray-500 bg-gray-50/30">
@@ -245,7 +257,15 @@ export default function PlansManagementPage() {
                     </TableCell>
                     <TableCell>
                       <div className="font-bold text-[14px] text-foreground">{plan.name}</div>
-                      <div className="text-[12px] text-muted-foreground">Created: {format(new Date(plan.created_at), 'MMM dd, yyyy')}</div>
+                      <div className="text-[12px] text-muted-foreground">Created: {(() => {
+                        try {
+                          if (!plan?.created_at) return "N/A";
+                          const d = new Date(plan.created_at);
+                          return isNaN(d.getTime()) ? "N/A" : format(d, 'MMM dd, yyyy');
+                        } catch {
+                          return "N/A";
+                        }
+                      })()}</div>
                     </TableCell>
                     <TableCell className="text-[13px] font-medium text-muted-foreground">{plan.duration} Days</TableCell>
                     <TableCell>

@@ -105,10 +105,6 @@ export default function PlanDialog({ open, setOpen, initialData }) {
   const isSubmitting = createMutation.isPending || editMutation.isPending;
 
   const onSubmit = async (data) => {
-    if (!imagePreview) {
-      toast.error("Please upload an image for the package");
-      return;
-    }
 
     if (data.maxInvestment < data.minInvestment) {
       setError("maxInvestment", {
@@ -128,7 +124,7 @@ export default function PlanDialog({ open, setOpen, initialData }) {
       capital_return: false,
       is_fixed_deposit: data.isFixedDeposit === "yes",
       status: data.status === "active",
-      image: imagePreview
+      image: imagePreview || null
     };
 
     try {
@@ -254,9 +250,24 @@ export default function PlanDialog({ open, setOpen, initialData }) {
             <h3 className="text-lg font-medium text-blue-500">Plan Image</h3>
             <div className="flex items-center gap-6">
               <div className="flex-1">
-                <Label className="text-gray-600 text-sm mb-1.5 block">
-                  Upload Thumbnail <span className="text-gray-400 text-xs">(Recommended: 200x200px, circular)</span>
-                </Label>
+                <div className="flex items-center justify-between mb-1.5">
+                  <Label className="text-gray-600 text-sm">
+                    Upload Thumbnail <span className="text-gray-400 text-xs">(Optional, recommended: 200x200px, circular)</span>
+                  </Label>
+                  {imagePreview && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setImagePreview(null);
+                        setImageName("");
+                        if (fileInputRef.current) fileInputRef.current.value = "";
+                      }}
+                      className="text-xs text-red-500 hover:text-red-700 font-medium"
+                    >
+                      Remove image
+                    </button>
+                  )}
+                </div>
                 <div className="flex items-center border rounded-md overflow-hidden bg-gray-50">
                   <Input 
                     type="text" 

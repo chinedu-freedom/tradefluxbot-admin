@@ -49,7 +49,7 @@ export default function CustomersManagementPage() {
     setIsDeleting(true)
     try {
       const token = CookieManager.get("sec-admin-token") || document.cookie.split("; ").find(row => row.trim().startsWith("sec-admin-token="))?.split("=")[1];
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_API_URL || "https://tradefluxbot-backend-5gbk.onrender.com/api"}/admin/users/${userToDelete.id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_API_URL || "https://api.tradefluxbot.com/api"}/admin/users/${userToDelete.id}`, {
         method: "DELETE",
         headers: {
           "Authorization": `Bearer ${token}`

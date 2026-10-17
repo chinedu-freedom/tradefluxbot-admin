@@ -3,8 +3,21 @@
 import axios from "axios";
 import { CookieManager } from "@/utils/cookie-utils";
 
-// ✅ Use correct env variable
-export const API_URL = process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_API_URL || "https://tradefluxbot-backend-5gbk.onrender.com/api";
+// Determine base API URL dynamically based on environment and hostname
+export const getBaseApiUrl = () => {
+  if (typeof window !== "undefined") {
+    const hostname = window.location.hostname;
+    if (hostname.includes("tradefluxbot.com")) {
+      return "https://api.tradefluxbot.com/api";
+    }
+    if (hostname === "localhost" || hostname === "127.0.0.1") {
+      return process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001/api";
+    }
+  }
+  return process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_API_URL || "https://api.tradefluxbot.com/api";
+};
+
+export const API_URL = getBaseApiUrl();
 
 const axiosInstance = axios.create({
   baseURL: API_URL,
@@ -14,9 +27,12 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   (config) => {
     if (typeof window !== "undefined") {
+      if (window.location.hostname.includes("tradefluxbot.com")) {
+        config.baseURL = "https://api.tradefluxbot.com/api";
+      }
       const token = CookieManager.get("sec-admin-token");
       if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
+        config.headers.Authorization = "Bearer " + token;
       }
     }
     return config;

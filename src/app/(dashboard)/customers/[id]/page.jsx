@@ -470,6 +470,12 @@ export default function CustomerDetailsPage() {
                     {user.downliners_summary?.total_team_count || user.downliners?.length || 0} members
                   </span>
                 </div>
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1">
+                  <span className="text-muted-foreground flex items-center gap-2"><Trophy className="w-3.5 h-3.5 text-amber-500" /> Rank Level</span>
+                  <span className="font-bold text-xs text-amber-500 bg-amber-500/10 px-2 py-0.5 rounded">
+                    {user.current_rank ? `Rank ${user.current_rank}` : "Unranked"}
+                  </span>
+                </div>
               </div>
             </div>
 

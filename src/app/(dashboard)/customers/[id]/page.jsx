@@ -7,7 +7,7 @@ import { useParams, useRouter } from "next/navigation"
 import { useFetchData } from "@/hooks/useApi"
 import { useQueryClient } from "@tanstack/react-query"
 import { format } from "date-fns"
-import { ArrowLeft, User, Mail, Globe, Calendar, CreditCard, Gift, Activity, Settings, Save, CheckCircle, XCircle, ShieldAlert, KeyRound, Clock, MapPin, Hash, Link as LinkIcon, AlertTriangle, ArrowRightLeft, Loader2, PlusCircle, MinusCircle, Plus, Minus, WalletCards, ListOrdered, Trash, UserCheck, Camera, Users, ArrowRight, ExternalLink, Share2, Copy, GitFork, Award } from "lucide-react"
+import { ArrowLeft, User, Mail, Globe, Calendar, CreditCard, Gift, Activity, Settings, Save, CheckCircle, XCircle, ShieldAlert, KeyRound, Clock, MapPin, Hash, Link as LinkIcon, AlertTriangle, ArrowRightLeft, Loader2, PlusCircle, MinusCircle, Plus, Minus, WalletCards, ListOrdered, Trash, UserCheck, Camera, Users, ArrowRight, ExternalLink, Share2, Copy, GitFork, Award, Trophy, Wallet } from "lucide-react"
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"

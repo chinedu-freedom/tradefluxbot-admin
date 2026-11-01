@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Copy, Plus, Edit2, Trash2 } from "lucide-react";
 
 const mockWallets = [
-  { id: 1, name: "Ethereum BEP20", network: "BEP20", address: "0xB0843CE0BACC3c69e9dcF69B149d4Cb9c6B56bBB", active: true },
+  { id: 1, name: "Ethereum ERC20", network: "ERC20", address: "0xB0843CE0BACC3c69e9dcF69B149d4Cb9c6B56bBB", active: true },
   { id: 2, name: "USDT BEP20", network: "BEP20", address: "0xB0843CE0BACC3c69e9dcF69B149d4Cb9c6B56bBB", active: true },
   { id: 3, name: "USDT Tether", network: "TRC20", address: "TXLaQpe1o1y6xYwWd8bB4E7dD9Vq68z42Y", active: true },
 ];

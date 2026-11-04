@@ -85,6 +85,7 @@ export default function BasicSettingsPage() {
       registration_bonus: 0,
       welcome_bonus_destination: "deposit",
       telegram_support: "",
+      whatsapp_floating_support: "",
       whatsapp_support: "",
       whatsapp_group: "",
       telegram_community: "",
@@ -118,6 +119,7 @@ export default function BasicSettingsPage() {
         registration_bonus: Number(settingsData.registration_bonus) || 0,
         welcome_bonus_destination: settingsData.welcome_bonus_destination || "deposit",
         telegram_support: settingsData.telegram_support || "",
+        whatsapp_floating_support: settingsData.whatsapp_floating_support || "",
         whatsapp_support: settingsData.whatsapp_support || "",
         whatsapp_group: settingsData.whatsapp_group || "",
         telegram_community: settingsData.telegram_community || "",
@@ -287,22 +289,28 @@ export default function BasicSettingsPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
             <ValidatedInput 
-              label="Telegram Support (Customer Service)" 
-              name="telegram_support"
+              label="Floating WhatsApp Support (Bottom-Left Widget)" 
+              name="whatsapp_floating_support"
               register={register}
-              subText="Direct link to your Telegram support account for customer inquiries" 
+              subText="Phone number or wa.me link for floating support widget (e.g. +44 7344 560920)" 
             />
             <ValidatedInput 
-              label="WhatsApp Support" 
+              label="Dashboard WhatsApp Support (Grid Icon and Help)" 
               name="whatsapp_support"
               register={register}
-              subText="WhatsApp link for customer support (format: https://wa.me/phonenumber)" 
+              subText="Phone number or wa.me link for dashboard support icon (e.g. +44 7344 931677)" 
+            />
+            <ValidatedInput 
+              label="WhatsApp Group Link (Popup Modal and Help)" 
+              name="whatsapp_group"
+              register={register}
+              subText="WhatsApp community group link (e.g. https://chat.whatsapp.com/...)" 
             />
             <ValidatedInput 
               label="Telegram Community Channel" 
               name="telegram_community"
               register={register}
-              subText="Public Telegram channel for announcements and community updates" 
+              subText="Public Telegram channel for announcements (e.g. https://t.me/tradefluxbotgroup)" 
             />
             <ValidatedInput 
               label="Telegram Group Chat" 
@@ -311,10 +319,10 @@ export default function BasicSettingsPage() {
               subText="Telegram group for community discussions and member interactions" 
             />
             <ValidatedInput 
-              label="WhatsApp Group Link (Popup Modal)" 
-              name="whatsapp_group"
+              label="Telegram Support (Customer Service)" 
+              name="telegram_support"
               register={register}
-              subText="WhatsApp group link for the official information popup modal in the user dashboard" 
+              subText="Direct link to your Telegram support account for customer inquiries" 
             />
             
             <div className="col-span-1 md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6 mt-2">
